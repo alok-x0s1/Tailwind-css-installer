@@ -1,4 +1,4 @@
-import { execa } from "execa"; // Use named import for execa
+import { execa } from "execa";
 import fs from "fs";
 
 export const setupReact = async () => {
