@@ -1,7 +1,7 @@
 {
   "name": "tailwind-css-installer",
   "version": "1.0.0",
-  "description": "A tool to set up Tailwind CSS in various frameworks",
+  "description": "A CLI tool to set up Tailwind CSS in various frameworks.",
   "main": "index.mjs",
   "bin": {
     "tailwind-css-installer": "./index.mjs"
@@ -11,10 +11,22 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "npm"
+    "tailwind",
+    "cli",
+    "setup",
+    "react",
+    "vite"
   ],
   "author": "@lokYadav",
   "license": "ISC",
+  "homepage": "https://github.com/alok-x0s1/Tailwind-css-installer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alok-x0s1/Tailwind-css-installer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alok-x0s1/Tailwind-css-installer/issues"
+  },
   "dependencies": {
     "execa": "^9.3.0",
     "inquirer": "^10.1.8"
