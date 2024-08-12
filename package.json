@@ -1,0 +1,22 @@
+{
+  "name": "tailwind-css-installer",
+  "version": "1.0.0",
+  "description": "A tool to set up Tailwind CSS in various frameworks",
+  "main": "index.mjs",
+  "bin": {
+    "tailwind-css-installer": "./index.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "@lokYadav",
+  "license": "ISC",
+  "dependencies": {
+    "execa": "^9.3.0",
+    "inquirer": "^10.1.8"
+  }
+}
