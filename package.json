@@ -1,6 +1,6 @@
 {
   "name": "tailwind-css-installer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI tool to set up Tailwind CSS in various frameworks.",
   "main": "index.mjs",
   "bin": {
