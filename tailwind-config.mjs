@@ -1,18 +1,24 @@
 import { execa } from "execa";
 import fs from "fs";
 
-export const setupReact = async () => {
+const createFile = (path, content) => {
+	fs.writeFileSync(path, content, { encoding: "utf8" });
+};
+
+const updateTailwindConfig = (content) => {
+	createFile("tailwind.config.js", content);
+};
+
+export const setupReact = async (isTypeScript) => {
 	console.log("Setting up Tailwind CSS for React...");
 
 	await execa("npm", ["install", "tailwindcss", "postcss", "autoprefixer"], {
 		stdio: "inherit",
 	});
 
-	// Initialize Tailwind CSS
 	await execa("npx", ["tailwindcss", "init"], { stdio: "inherit" });
 
-	// Create postcss.config.js
-	fs.writeFileSync(
+	createFile(
 		"postcss.config.js",
 		`
     module.exports = {
@@ -25,12 +31,10 @@ export const setupReact = async () => {
   `
 	);
 
-	// Update tailwind.config.js
-	fs.writeFileSync(
-		"tailwind.config.js",
+	updateTailwindConfig(
 		`
     module.exports = {
-      content: ["./src/**/*.{js,jsx,ts,tsx}"],
+      content: ["./src/**/*.{${isTypeScript ? "ts,tsx" : "js,jsx"}"]},
       theme: {
         extend: {},
       },
@@ -39,8 +43,14 @@ export const setupReact = async () => {
   `
 	);
 
-	// Update src/index.css
-	fs.writeFileSync(
+	createFile(
+		`src/index.${isTypeScript ? "ts" : "js"}`,
+		`
+    import './index.css';
+  `
+	);
+
+	createFile(
 		"src/index.css",
 		`
     @tailwind base;
@@ -52,18 +62,16 @@ export const setupReact = async () => {
 	console.log("Tailwind CSS has been set up for React.");
 };
 
-export const setupVite = async () => {
+export const setupVite = async (isTypeScript) => {
 	console.log("Setting up Tailwind CSS for Vite...");
 
 	await execa("npm", ["install", "tailwindcss", "postcss", "autoprefixer"], {
 		stdio: "inherit",
 	});
 
-	// Initialize Tailwind CSS
 	await execa("npx", ["tailwindcss", "init"], { stdio: "inherit" });
 
-	// Create postcss.config.js
-	fs.writeFileSync(
+	createFile(
 		"postcss.config.js",
 		`
     module.exports = {
@@ -76,12 +84,10 @@ export const setupVite = async () => {
   `
 	);
 
-	// Update tailwind.config.js
-	fs.writeFileSync(
-		"tailwind.config.js",
+	updateTailwindConfig(
 		`
     module.exports = {
-      content: ["./src/**/*.{js,jsx,ts,tsx}"],
+      content: ["./src/**/*.{${isTypeScript ? "ts,tsx" : "js,jsx"}"]},
       theme: {
         extend: {},
       },
@@ -90,8 +96,14 @@ export const setupVite = async () => {
   `
 	);
 
-	// Update src/index.css
-	fs.writeFileSync(
+	createFile(
+		`src/index.${isTypeScript ? "ts" : "js"}`,
+		`
+    import './index.css';
+  `
+	);
+
+	createFile(
 		"src/index.css",
 		`
     @tailwind base;
@@ -103,29 +115,25 @@ export const setupVite = async () => {
 	console.log("Tailwind CSS has been set up for Vite.");
 };
 
-export const setupAngular = async () => {
+export const setupAngular = async (isTypeScript) => {
 	console.log("Setting up Tailwind CSS for Angular...");
 
 	await execa("npm", ["install", "tailwindcss", "postcss", "autoprefixer"], {
 		stdio: "inherit",
 	});
 
-	// Initialize Tailwind CSS
 	await execa("npx", ["tailwindcss", "init"], { stdio: "inherit" });
 
-	// Update angular.json
 	const angularJson = JSON.parse(fs.readFileSync("angular.json", "utf-8"));
 	angularJson.projects.app.architect.build.options.styles.push(
 		"src/styles.css"
 	);
 	fs.writeFileSync("angular.json", JSON.stringify(angularJson, null, 2));
 
-	// Update tailwind.config.js
-	fs.writeFileSync(
-		"tailwind.config.js",
+	updateTailwindConfig(
 		`
     module.exports = {
-      content: ["./src/**/*.{html,ts}"],
+      content: ["./src/**/*.{${isTypeScript ? "ts" : "js"},html}"],
       theme: {
         extend: {},
       },
@@ -134,8 +142,7 @@ export const setupAngular = async () => {
   `
 	);
 
-	// Update src/styles.css
-	fs.writeFileSync(
+	createFile(
 		"src/styles.css",
 		`
     @tailwind base;
@@ -147,18 +154,16 @@ export const setupAngular = async () => {
 	console.log("Tailwind CSS has been set up for Angular.");
 };
 
-export const setupVue = async () => {
+export const setupVue = async (isTypeScript) => {
 	console.log("Setting up Tailwind CSS for Vue...");
 
 	await execa("npm", ["install", "tailwindcss", "postcss", "autoprefixer"], {
 		stdio: "inherit",
 	});
 
-	// Initialize Tailwind CSS
 	await execa("npx", ["tailwindcss", "init"], { stdio: "inherit" });
 
-	// Create postcss.config.js
-	fs.writeFileSync(
+	createFile(
 		"postcss.config.js",
 		`
     module.exports = {
@@ -171,12 +176,10 @@ export const setupVue = async () => {
   `
 	);
 
-	// Update tailwind.config.js
-	fs.writeFileSync(
-		"tailwind.config.js",
+	updateTailwindConfig(
 		`
     module.exports = {
-      content: ["./src/**/*.{vue,js,ts,jsx,tsx}"],
+      content: ["./src/**/*.{${isTypeScript ? "ts" : "js"},vue}"],
       theme: {
         extend: {},
       },
@@ -185,8 +188,7 @@ export const setupVue = async () => {
   `
 	);
 
-	// Update src/assets/styles.css
-	fs.writeFileSync(
+	createFile(
 		"src/assets/styles.css",
 		`
     @tailwind base;
@@ -198,18 +200,16 @@ export const setupVue = async () => {
 	console.log("Tailwind CSS has been set up for Vue.");
 };
 
-export const setupSvelte = async () => {
+export const setupSvelte = async (isTypeScript) => {
 	console.log("Setting up Tailwind CSS for Svelte...");
 
 	await execa("npm", ["install", "tailwindcss", "postcss", "autoprefixer"], {
 		stdio: "inherit",
 	});
 
-	// Initialize Tailwind CSS
 	await execa("npx", ["tailwindcss", "init"], { stdio: "inherit" });
 
-	// Create postcss.config.js
-	fs.writeFileSync(
+	createFile(
 		"postcss.config.js",
 		`
     module.exports = {
@@ -221,12 +221,10 @@ export const setupSvelte = async () => {
   `
 	);
 
-	// Update tailwind.config.js
-	fs.writeFileSync(
-		"tailwind.config.js",
+	updateTailwindConfig(
 		`
     module.exports = {
-      content: ["./src/**/*.{html,js,svelte}"],
+      content: ["./src/**/*.{${isTypeScript ? "ts" : "js"},html,svelte}"],
       theme: {
         extend: {},
       },
@@ -235,8 +233,14 @@ export const setupSvelte = async () => {
   `
 	);
 
-	// Update src/app.css
-	fs.writeFileSync(
+	createFile(
+		`src/app.${isTypeScript ? "ts" : "js"}`,
+		`
+    import './app.css';
+  `
+	);
+
+	createFile(
 		"src/app.css",
 		`
     @tailwind base;
