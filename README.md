@@ -65,6 +65,32 @@ or, if installed locally:
 npx tailwind-installer
 ```
 
+You will be prompted to select your framework:
+
+-   React
+-   Vite
+-   Angular
+-   Vue
+-   Svelte
+
+### Example Setup Process
+
+1. Run `tailwind-installer`.
+2. Select your framework (e.g., Angular).
+3. The tool will set up your project and configure Tailwind CSS.
+
+### Framework-Specific Setup Details
+
+#### **React**
+
+#### **Vite**
+
+#### **Angular**
+
+#### **Vue**
+
+#### **Svelte**
+
 ### Configuration
 
 The CLI tool will guide you through the configuration process, including:
